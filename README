@@ -1,0 +1,17 @@
+A simple library to help me re-learn the classic sorting algorithms I've long since forgotten from University days.
+
+To create the library, try 'make'
+
+The 'test' directory contains trivial test programs that I'm using to verify basic code functionality.
+
+STATUS:
+
+    * there is one sorting algorithm, a slightly optimized version of bubblesort
+    * test/insort.c - contains a trivial integer sorting test which excercises
+        the bubblesort and ascending/descending integer comparison functions
+
+TODO
+    * implement more sorting algorithms (quicksort, insertion, mergesort, ???)
+    * pull the memory comparison & swapping out from bubblesort into the library
+    * improve the testing to use some kind of assertion-based framework
+    * performance tuning & benchmarking metrics?
