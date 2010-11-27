@@ -48,5 +48,6 @@ int char_compare_desc(const void * first, const void * second);
 /* libary-defined sort routines: note that externs (while klugey) are
  * used here to reduce header dependencies, so their use is probably OK */
 extern int bubblesort(void * list, size_t nelem, size_t elem_size, compare_func comp);
+extern int mergesort(void * list, size_t nelem, size_t elem_size, compare_func comp);
 
 #endif /* __LIBSORT_H */

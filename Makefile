@@ -1,8 +1,8 @@
 TARGET=libsort.a
-OBJS=sort.o bubblesort.o
+OBJS=sort.o bubblesort.o mergesort.o
 CC=gcc
 AR=ar
-CFLAGS=-g -O2
+CFLAGS=-g
 
 
 all: $(TARGET)
