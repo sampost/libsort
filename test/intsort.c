@@ -109,7 +109,7 @@ int main(int argc, char ** argv)
     if(algo == NULL || strcmp(algo, "quick") == 0)
     {
         printf("Sorting quicksort, int asc\n");
-        quicksort(numbers, len, sizeof(int), int_compare_asc);
+        quicksort(numbers, 0, len-1, sizeof(int), int_compare_asc);
 
 
         /* verify the list is sorted ascending */
@@ -119,7 +119,7 @@ int main(int argc, char ** argv)
                        i, i+1, numbers[i], numbers[i+1]);
 
         printf("Sorting quicksort, int desc\n");
-        quicksort(numbers, len, sizeof(int), int_compare_desc);
+        quicksort(numbers, 0, len-1, sizeof(int), int_compare_desc);
 
         /* verify the list is sorted descending */
         for(i = 0; i < len-1; i++)

@@ -50,6 +50,6 @@ int char_compare_desc(const void * first, const void * second);
 extern int bubblesort(void * list, size_t nelem, size_t elem_size, compare_func comp);
 extern int mergesort(void * list, size_t nelem, size_t elem_size, compare_func comp);
 extern int mergesort_onemalloc(void * list, size_t nelem, size_t elem_size, compare_func comp, char * templist);
-extern int quicksort(void * list, size_t nelem, size_t esize, compare_func comp);
+extern int quicksort(void * list, size_t left, size_t right, size_t esize, compare_func comp);
 
 #endif /* __LIBSORT_H */
