@@ -84,6 +84,28 @@ int main(int argc, char ** argv)
                         i, i+1, numbers[i], numbers[i+1]);
     }
 
+    if(algo == NULL || strcmp(algo, "mone") == 0)
+    {
+        printf("Sorting mergesort_onemalloc, int asc\n");
+        mergesort_onemalloc(numbers, len, sizeof(int), int_compare_asc, NULL);
+
+
+        /* verify the list is sorted ascending */
+        for(i = 0; i < len-1; i++)
+            if(numbers[i] > numbers[i+1])
+                printf("Failure! n[%d] > n[%d] (%d, %d)\n",
+                        i, i+1, numbers[i], numbers[i+1]);
+
+        printf("Sorting mergesort_onemalloc, int desc\n");
+        mergesort_onemalloc(numbers, len, sizeof(int), int_compare_desc, NULL);
+
+        /* verify the list is sorted descending */
+        for(i = 0; i < len-1; i++)
+            if(numbers[i] < numbers[i+1])
+                printf("Failure! n[%d] < n[%d] (%d, %d)\n",
+                        i, i+1, numbers[i], numbers[i+1]);
+    }
+
     free(numbers);
     return 0;
 }
