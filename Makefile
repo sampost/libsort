@@ -1,5 +1,5 @@
 TARGET=libsort.a
-OBJS=sort.o bubblesort.o mergesort.o
+OBJS=sort.o bubblesort.o mergesort.o quicksort.o quicksort.o
 CC=gcc
 AR=ar
 CFLAGS=-g

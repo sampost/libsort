@@ -106,6 +106,28 @@ int main(int argc, char ** argv)
                         i, i+1, numbers[i], numbers[i+1]);
     }
 
+    if(algo == NULL || strcmp(algo, "quick") == 0)
+    {
+        printf("Sorting quicksort, int asc\n");
+        quicksort(numbers, len, sizeof(int), int_compare_asc);
+
+
+        /* verify the list is sorted ascending */
+        for(i = 0; i < len-1; i++)
+            if(numbers[i] > numbers[i+1])
+                printf("Failure! n[%d] > n[%d] (%d, %d)\n",
+                       i, i+1, numbers[i], numbers[i+1]);
+
+        printf("Sorting quicksort, int desc\n");
+        quicksort(numbers, len, sizeof(int), int_compare_desc);
+
+        /* verify the list is sorted descending */
+        for(i = 0; i < len-1; i++)
+            if(numbers[i] < numbers[i+1])
+                printf("Failure! n[%d] < n[%d] (%d, %d)\n",
+                       i, i+1, numbers[i], numbers[i+1]);
+    }
+
     free(numbers);
     return 0;
 }
