@@ -8,13 +8,28 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "sort.h"
+
+/* printtime - display the difference between
+ * two timestamps in sec, usec */
+void printtime(struct timeval * start, struct timeval * end)
+{
+    unsigned long long    diff_us;
+
+    diff_us =
+        (((unsigned long long)end->tv_sec)*1000000 + end->tv_usec) -
+        (((unsigned long long)start->tv_sec)*1000000 + start->tv_usec);
+
+    printf("%llu s, %06llu us\n", diff_us/1000000, diff_us%1000000);
+}
 
 int main(int argc, char ** argv)
 {
     int * numbers;
     int   len, i;
     char * algo = NULL;
+    struct timeval start, end;
 
     if(argc == 3)
     {
@@ -42,8 +57,12 @@ int main(int argc, char ** argv)
 
     if(algo == NULL || strcmp(algo, "bubble") == 0)
     {
-        printf("Sorting bubblesort, int asc\n");
+        printf("Sorting bubblesort, int asc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         bubblesort(numbers, len, sizeof(int), int_compare_asc);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
         /* verify the list is sorted ascending */
         for(i = 0; i < len-1; i++)
@@ -51,8 +70,12 @@ int main(int argc, char ** argv)
                 printf("Failure! n[%d] > n[%d] (%d, %d)\n",
                         i, i+1, numbers[i], numbers[i+1]);
 
-        printf("Sorting bubblesort, int desc\n");
+        printf("Sorting bubblesort, int desc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         bubblesort(numbers, len, sizeof(int), int_compare_desc);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
         /* verify the list is sorted descending */
         for(i = 0; i < len-1; i++)
@@ -64,8 +87,12 @@ int main(int argc, char ** argv)
 
     if(algo == NULL || strcmp(algo, "merge") == 0)
     {
-        printf("Sorting mergesort, int asc\n");
+        printf("Sorting mergesort, int asc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         mergesort(numbers, len, sizeof(int), int_compare_asc);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
 
         /* verify the list is sorted ascending */
@@ -74,8 +101,12 @@ int main(int argc, char ** argv)
                 printf("Failure! n[%d] > n[%d] (%d, %d)\n",
                         i, i+1, numbers[i], numbers[i+1]);
 
-        printf("Sorting mergesort, int desc\n");
+        printf("Sorting mergesort, int desc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         mergesort(numbers, len, sizeof(int), int_compare_desc);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
         /* verify the list is sorted descending */
         for(i = 0; i < len-1; i++)
@@ -86,8 +117,12 @@ int main(int argc, char ** argv)
 
     if(algo == NULL || strcmp(algo, "mone") == 0)
     {
-        printf("Sorting mergesort_onemalloc, int asc\n");
+        printf("Sorting mergesort_onemalloc, int asc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         mergesort_onemalloc(numbers, len, sizeof(int), int_compare_asc, NULL);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
 
         /* verify the list is sorted ascending */
@@ -96,8 +131,12 @@ int main(int argc, char ** argv)
                 printf("Failure! n[%d] > n[%d] (%d, %d)\n",
                         i, i+1, numbers[i], numbers[i+1]);
 
-        printf("Sorting mergesort_onemalloc, int desc\n");
+        printf("Sorting mergesort_onemalloc, int desc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         mergesort_onemalloc(numbers, len, sizeof(int), int_compare_desc, NULL);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
         /* verify the list is sorted descending */
         for(i = 0; i < len-1; i++)
@@ -108,8 +147,12 @@ int main(int argc, char ** argv)
 
     if(algo == NULL || strcmp(algo, "quick") == 0)
     {
-        printf("Sorting quicksort, int asc\n");
+        printf("Sorting quicksort, int asc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         quicksort(numbers, 0, len-1, sizeof(int), int_compare_asc);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
 
         /* verify the list is sorted ascending */
@@ -118,8 +161,12 @@ int main(int argc, char ** argv)
                 printf("Failure! n[%d] > n[%d] (%d, %d)\n",
                        i, i+1, numbers[i], numbers[i+1]);
 
-        printf("Sorting quicksort, int desc\n");
+        printf("Sorting quicksort, int desc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         quicksort(numbers, 0, len-1, sizeof(int), int_compare_desc);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
         /* verify the list is sorted descending */
         for(i = 0; i < len-1; i++)
@@ -130,8 +177,12 @@ int main(int argc, char ** argv)
 
     if(algo == NULL || strcmp(algo, "qone") == 0)
     {
-        printf("Sorting quicksort_onemalloc, int asc\n");
+        printf("Sorting quicksort_onemalloc, int asc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         quicksort_onemalloc(numbers, 0, len-1, sizeof(int), int_compare_asc, NULL);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
 
         /* verify the list is sorted ascending */
@@ -140,8 +191,12 @@ int main(int argc, char ** argv)
                 printf("Failure! n[%d] > n[%d] (%d, %d)\n",
                        i, i+1, numbers[i], numbers[i+1]);
 
-        printf("Sorting quicksort_onemalloc, int desc\n");
+        printf("Sorting quicksort_onemalloc, int desc: ");
+        fflush(stdout);
+        gettimeofday(&start);
         quicksort_onemalloc(numbers, 0, len-1, sizeof(int), int_compare_desc, NULL);
+        gettimeofday(&end);
+        printtime(&start, &end);
 
         /* verify the list is sorted descending */
         for(i = 0; i < len-1; i++)
