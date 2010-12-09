@@ -59,9 +59,9 @@ int main(int argc, char ** argv)
     {
         printf("Sorting bubblesort, int asc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         bubblesort(numbers, len, sizeof(int), int_compare_asc);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
         /* verify the list is sorted ascending */
@@ -72,9 +72,9 @@ int main(int argc, char ** argv)
 
         printf("Sorting bubblesort, int desc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         bubblesort(numbers, len, sizeof(int), int_compare_desc);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
@@ -89,9 +89,9 @@ int main(int argc, char ** argv)
     {
         printf("Sorting mergesort, int asc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         mergesort(numbers, len, sizeof(int), int_compare_asc);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
 
@@ -103,9 +103,9 @@ int main(int argc, char ** argv)
 
         printf("Sorting mergesort, int desc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         mergesort(numbers, len, sizeof(int), int_compare_desc);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
@@ -119,9 +119,9 @@ int main(int argc, char ** argv)
     {
         printf("Sorting mergesort_onemalloc, int asc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         mergesort_onemalloc(numbers, len, sizeof(int), int_compare_asc, NULL);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
 
@@ -133,9 +133,9 @@ int main(int argc, char ** argv)
 
         printf("Sorting mergesort_onemalloc, int desc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         mergesort_onemalloc(numbers, len, sizeof(int), int_compare_desc, NULL);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
@@ -149,9 +149,9 @@ int main(int argc, char ** argv)
     {
         printf("Sorting quicksort, int asc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         quicksort(numbers, 0, len-1, sizeof(int), int_compare_asc);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
 
@@ -163,9 +163,9 @@ int main(int argc, char ** argv)
 
         printf("Sorting quicksort, int desc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         quicksort(numbers, 0, len-1, sizeof(int), int_compare_desc);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
@@ -179,9 +179,9 @@ int main(int argc, char ** argv)
     {
         printf("Sorting quicksort_onemalloc, int asc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         quicksort_onemalloc(numbers, 0, len-1, sizeof(int), int_compare_asc, NULL);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
 
@@ -193,9 +193,9 @@ int main(int argc, char ** argv)
 
         printf("Sorting quicksort_onemalloc, int desc: ");
         fflush(stdout);
-        gettimeofday(&start);
+        gettimeofday(&start, NULL);
         quicksort_onemalloc(numbers, 0, len-1, sizeof(int), int_compare_desc, NULL);
-        gettimeofday(&end);
+        gettimeofday(&end, NULL);
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
