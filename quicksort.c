@@ -33,9 +33,12 @@ int quicksort(void * list, size_t left, size_t right, size_t esize, compare_func
             rightpos -= esize;
 
         // swap left with right
-        memcpy(tmp, leftpos, esize);
-        memcpy(leftpos, rightpos, esize);
-        memcpy(rightpos, tmp, esize);
+        if(leftpos != rightpos)
+        {
+            memcpy(tmp, leftpos, esize);
+            memcpy(leftpos, rightpos, esize);
+            memcpy(rightpos, tmp, esize);
+        }
 
         leftpos += esize;
         rightpos -= esize;
@@ -88,9 +91,12 @@ int quicksort_onemalloc(void * list, size_t left, size_t right,
             rightpos -= esize;
 
         // swap left with right
-        memcpy(tmp, leftpos, esize);
-        memcpy(leftpos, rightpos, esize);
-        memcpy(rightpos, tmp, esize);
+        if(leftpos != rightpos)
+        {
+            memcpy(tmp, leftpos, esize);
+            memcpy(leftpos, rightpos, esize);
+            memcpy(rightpos, tmp, esize);
+        }
 
         leftpos += esize;
         rightpos -= esize;
