@@ -24,6 +24,22 @@ void printtime(struct timeval * start, struct timeval * end)
     printf("%llu s, %06llu us\n", diff_us/1000000, diff_us%1000000);
 }
 
+/* verify the list is sorted (asc or desc) */
+int verify_sort(int * numbers, int len, short asc)
+{
+    int i;
+
+    for(i = 0; i < len-1; i++)
+    {
+        if(asc && (numbers[i] > numbers[i+1]))
+           printf("Failure! n[%d] > n[%d] (%d, %d)\n",
+                  i, i+1, numbers[i], numbers[i+1]);
+        if(!asc && (numbers[i] < numbers[i+1]))
+           printf("Failure! n[%d] < n[%d] (%d, %d)\n",
+                  i, i+1, numbers[i], numbers[i+1]);
+    }
+}
+
 int main(int argc, char ** argv)
 {
     int * numbers;
@@ -65,10 +81,7 @@ int main(int argc, char ** argv)
         printtime(&start, &end);
 
         /* verify the list is sorted ascending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] > numbers[i+1])
-                printf("Failure! n[%d] > n[%d] (%d, %d)\n",
-                        i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 1);
 
         printf("Sorting bubblesort, int desc: ");
         fflush(stdout);
@@ -78,10 +91,7 @@ int main(int argc, char ** argv)
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] < numbers[i+1])
-                printf("Failure! n[%d] < n[%d] (%d, %d)\n",
-                        i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 0);
     }
 
 
@@ -96,10 +106,7 @@ int main(int argc, char ** argv)
 
 
         /* verify the list is sorted ascending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] > numbers[i+1])
-                printf("Failure! n[%d] > n[%d] (%d, %d)\n",
-                        i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 1);
 
         printf("Sorting mergesort, int desc: ");
         fflush(stdout);
@@ -109,10 +116,7 @@ int main(int argc, char ** argv)
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] < numbers[i+1])
-                printf("Failure! n[%d] < n[%d] (%d, %d)\n",
-                        i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 0);
     }
 
     if(algo == NULL || strcmp(algo, "mone") == 0)
@@ -126,10 +130,7 @@ int main(int argc, char ** argv)
 
 
         /* verify the list is sorted ascending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] > numbers[i+1])
-                printf("Failure! n[%d] > n[%d] (%d, %d)\n",
-                        i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 1);
 
         printf("Sorting mergesort_onemalloc, int desc: ");
         fflush(stdout);
@@ -139,10 +140,7 @@ int main(int argc, char ** argv)
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] < numbers[i+1])
-                printf("Failure! n[%d] < n[%d] (%d, %d)\n",
-                        i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 0);
     }
 
     if(algo == NULL || strcmp(algo, "quick") == 0)
@@ -156,10 +154,7 @@ int main(int argc, char ** argv)
 
 
         /* verify the list is sorted ascending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] > numbers[i+1])
-                printf("Failure! n[%d] > n[%d] (%d, %d)\n",
-                       i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 1);
 
         printf("Sorting quicksort, int desc: ");
         fflush(stdout);
@@ -169,10 +164,7 @@ int main(int argc, char ** argv)
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] < numbers[i+1])
-                printf("Failure! n[%d] < n[%d] (%d, %d)\n",
-                       i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 0);
     }
 
     if(algo == NULL || strcmp(algo, "qone") == 0)
@@ -186,10 +178,7 @@ int main(int argc, char ** argv)
 
 
         /* verify the list is sorted ascending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] > numbers[i+1])
-                printf("Failure! n[%d] > n[%d] (%d, %d)\n",
-                       i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 1);
 
         printf("Sorting quicksort_onemalloc, int desc: ");
         fflush(stdout);
@@ -199,10 +188,7 @@ int main(int argc, char ** argv)
         printtime(&start, &end);
 
         /* verify the list is sorted descending */
-        for(i = 0; i < len-1; i++)
-            if(numbers[i] < numbers[i+1])
-                printf("Failure! n[%d] < n[%d] (%d, %d)\n",
-                       i, i+1, numbers[i], numbers[i+1]);
+        verify_sort(numbers, len, 0);
     }
 
     free(numbers);

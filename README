@@ -6,12 +6,14 @@ The 'test' directory contains trivial test programs that I'm using to verify bas
 
 STATUS:
 
-    * there is one sorting algorithm, a slightly optimized version of bubblesort
+    * three sorting algorithms
+        * a slightly optimized version of bubblesort
+        * mergesort (plus a version which malloc's once at top frame)
+        * in-place quicksort (plus a version which malloc's once at top frame)
     * test/insort.c - contains a trivial integer sorting test which excercises
         the bubblesort and ascending/descending integer comparison functions
 
 TODO
-    * implement more sorting algorithms (quicksort, insertion, mergesort, ???)
     * pull the memory comparison & swapping out from bubblesort into the library
     * improve the testing to use some kind of assertion-based framework
     * performance tuning & benchmarking metrics?
