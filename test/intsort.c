@@ -40,12 +40,59 @@ int verify_sort(int * numbers, int len, short asc)
     }
 }
 
+/* simplify the running of sort algorithms in main by
+ * pulling common code into a helper function */
+int do_int_sort(int * numbers, int len, char * name, void * func,
+                compare_func comp)
+{
+    struct timeval start, end;
+    printf("Sorting %s, int %s: ", name,
+           (comp == &int_compare_asc? "asc" : "desc"));
+    fflush(stdout);
+
+    /* if C had closures / lambda functions, this would
+     * be much cleaner/cooler code... */
+    if(func == &bubblesort)
+    {
+        gettimeofday(&start, NULL);
+        bubblesort(numbers, len, sizeof(int), comp);
+        gettimeofday(&end, NULL);
+    }
+    else if(func == &mergesort)
+    {
+        gettimeofday(&start, NULL);
+        mergesort(numbers, len, sizeof(int), comp);
+        gettimeofday(&end, NULL);
+    }
+    else if(func == &mergesort_onemalloc)
+    {
+        gettimeofday(&start, NULL);
+        mergesort_onemalloc(numbers, len, sizeof(int), comp, NULL);
+        gettimeofday(&end, NULL);
+    }
+    else if(func == &quicksort)
+    {
+        gettimeofday(&start, NULL);
+        quicksort(numbers, 0, len-1, sizeof(int), comp);
+        gettimeofday(&end, NULL);
+    }
+    else if(func == &quicksort_onemalloc)
+    {
+        gettimeofday(&start, NULL);
+        quicksort_onemalloc(numbers, 0, len-1, sizeof(int), comp, NULL);
+        gettimeofday(&end, NULL);
+    }
+    printtime(&start, &end);
+}
+
+/* main - generate a list of random numbers
+ * and sort it a bunch of times. Display timings
+ * for each algorithm. */
 int main(int argc, char ** argv)
 {
     int * numbers;
     int   len, i;
     char * algo = NULL;
-    struct timeval start, end;
 
     if(argc == 3)
     {
@@ -73,121 +120,67 @@ int main(int argc, char ** argv)
 
     if(algo == NULL || strcmp(algo, "bubble") == 0)
     {
-        printf("Sorting bubblesort, int asc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        bubblesort(numbers, len, sizeof(int), int_compare_asc);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
-        /* verify the list is sorted ascending */
+        /* sort ASC, verify the list is sorted ascending */
+        do_int_sort(numbers, len, "bubblesort",
+                    &bubblesort, int_compare_asc);
         verify_sort(numbers, len, 1);
 
-        printf("Sorting bubblesort, int desc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        bubblesort(numbers, len, sizeof(int), int_compare_desc);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
-        /* verify the list is sorted descending */
+        /* sort DESC, verify the list is sorted descending */
+        do_int_sort(numbers, len, "bubblesort",
+                    &bubblesort, int_compare_desc);
         verify_sort(numbers, len, 0);
     }
 
 
     if(algo == NULL || strcmp(algo, "merge") == 0)
     {
-        printf("Sorting mergesort, int asc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        mergesort(numbers, len, sizeof(int), int_compare_asc);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
-
-        /* verify the list is sorted ascending */
+        /* sort ASC, verify the list is sorted ascending */
+        do_int_sort(numbers, len, "mergesort",
+                    &mergesort, int_compare_asc);
         verify_sort(numbers, len, 1);
 
-        printf("Sorting mergesort, int desc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        mergesort(numbers, len, sizeof(int), int_compare_desc);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
-        /* verify the list is sorted descending */
+        /* sort DESC, verify the list is sorted descending */
+        do_int_sort(numbers, len, "mergesort",
+                    &mergesort, int_compare_desc);
         verify_sort(numbers, len, 0);
     }
 
     if(algo == NULL || strcmp(algo, "mone") == 0)
     {
-        printf("Sorting mergesort_onemalloc, int asc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        mergesort_onemalloc(numbers, len, sizeof(int), int_compare_asc, NULL);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
-
-        /* verify the list is sorted ascending */
+        /* sort ASC, verify the list is sorted ascending */
+        do_int_sort(numbers, len, "mergesort_onemalloc",
+                    &mergesort_onemalloc, int_compare_asc);
         verify_sort(numbers, len, 1);
 
-        printf("Sorting mergesort_onemalloc, int desc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        mergesort_onemalloc(numbers, len, sizeof(int), int_compare_desc, NULL);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
-        /* verify the list is sorted descending */
+        /* sort DESC, verify the list is sorted descending */
+        do_int_sort(numbers, len, "mergesort_onemalloc",
+                    &mergesort_onemalloc, int_compare_desc);
         verify_sort(numbers, len, 0);
     }
 
     if(algo == NULL || strcmp(algo, "quick") == 0)
     {
-        printf("Sorting quicksort, int asc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        quicksort(numbers, 0, len-1, sizeof(int), int_compare_asc);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
-
-        /* verify the list is sorted ascending */
+        /* sort ASC, verify the list is sorted ascending */
+        do_int_sort(numbers, len, "quicksort",
+                    &quicksort, int_compare_asc);
         verify_sort(numbers, len, 1);
 
-        printf("Sorting quicksort, int desc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        quicksort(numbers, 0, len-1, sizeof(int), int_compare_desc);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
         /* verify the list is sorted descending */
+        do_int_sort(numbers, len, "quicksort",
+                    &quicksort, int_compare_desc);
         verify_sort(numbers, len, 0);
     }
 
     if(algo == NULL || strcmp(algo, "qone") == 0)
     {
-        printf("Sorting quicksort_onemalloc, int asc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        quicksort_onemalloc(numbers, 0, len-1, sizeof(int), int_compare_asc, NULL);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
-
-        /* verify the list is sorted ascending */
+        /* sort ASC, verify the list is sorted ascending */
+        do_int_sort(numbers, len, "quicksort_onemalloc",
+                    &quicksort_onemalloc, int_compare_asc);
         verify_sort(numbers, len, 1);
 
-        printf("Sorting quicksort_onemalloc, int desc: ");
-        fflush(stdout);
-        gettimeofday(&start, NULL);
-        quicksort_onemalloc(numbers, 0, len-1, sizeof(int), int_compare_desc, NULL);
-        gettimeofday(&end, NULL);
-        printtime(&start, &end);
-
         /* verify the list is sorted descending */
+        do_int_sort(numbers, len, "quicksort_onemalloc",
+                    &quicksort_onemalloc, int_compare_desc);
         verify_sort(numbers, len, 0);
     }
 
